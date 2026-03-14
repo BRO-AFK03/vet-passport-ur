@@ -386,6 +386,7 @@
             font-weight: 600;
             color: #1e4b3e;
             word-break: break-word;
+            min-height: 1.5em;
         }
 
         .certificate-photo-frame {
@@ -407,13 +408,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            display: none;
         }
 
         .certificate-placeholder {
             width: 100%;
             height: 100%;
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -990,13 +991,13 @@
                 </div>
             </div>
 
-            <!-- НОВЫЙ ОТДЕЛ: СЕРТИФИКАТЫ С ФОТО -->
+            <!-- НОВЫЙ ОТДЕЛ: СЕРТИФИКАТЫ С ФОТО (ПУСТЫЕ ПОЛЯ) -->
             <div class="section-card">
                 <div class="section-title">📜 СЕРТИФИКАТЫ И ДИПЛОМЫ</div>
                 
                 <!-- Контейнер для сертификатов -->
                 <div class="certificates-grid" id="certificates-container">
-                    <!-- Сертификат 1 -->
+                    <!-- Сертификат 1 - ПУСТЫЕ ПОЛЯ -->
                     <div class="certificate-card" id="cert-card-0">
                         <div class="certificate-header">
                             <div class="certificate-title">
@@ -1008,21 +1009,20 @@
                             <div class="certificate-info">
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Наименование</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-0">Первоначальная подготовка по поиску НС</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-0"></div>
                                 </div>
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Номер</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-0-value">00003</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-0-value"></div>
                                 </div>
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Дата выдачи</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-0">2021 г.</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-0"></div>
                                 </div>
                             </div>
                             <div class="certificate-photo-frame" onclick="handleCertPhotoClick(0)">
-                                <!-- Фото сертификата 1 - Снимок экрана 2026-03-14 092121.png -->
-                                <img id="cert-photo-0" class="certificate-photo" src="Снимок экрана 2026-03-14 092121.png" alt="Фото сертификата 1" style="display: block;">
-                                <div class="certificate-placeholder" id="cert-placeholder-0" style="display: none;">
+                                <img id="cert-photo-0" class="certificate-photo" src="" alt="Фото сертификата 1">
+                                <div class="certificate-placeholder" id="cert-placeholder-0">
                                     📄
                                     <span>Нажмите для фото</span>
                                 </div>
@@ -1030,11 +1030,11 @@
                             </div>
                         </div>
                         <div class="certificate-footer">
-                            <div class="certificate-date">Действителен: бессрочно</div>
+                            <div class="certificate-date"></div>
                         </div>
                     </div>
                     
-                    <!-- Сертификат 2 -->
+                    <!-- Сертификат 2 - ПУСТЫЕ ПОЛЯ -->
                     <div class="certificate-card" id="cert-card-1">
                         <div class="certificate-header">
                             <div class="certificate-title">
@@ -1046,21 +1046,20 @@
                             <div class="certificate-info">
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Наименование</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-1">Поиск синтетических НС</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-1"></div>
                                 </div>
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Номер</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-1-value">№ 0089</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-1-value"></div>
                                 </div>
                                 <div class="certificate-info-item">
                                     <div class="certificate-info-label">Дата выдачи</div>
-                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-1">2025 г.</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-1"></div>
                                 </div>
                             </div>
                             <div class="certificate-photo-frame" onclick="handleCertPhotoClick(1)">
-                                <!-- Фото сертификата 2 - пока нет, можно добавить позже -->
-                                <img id="cert-photo-1" class="certificate-photo" src="" alt="Фото сертификата 2" style="display: none;">
-                                <div class="certificate-placeholder" id="cert-placeholder-1" style="display: flex;">
+                                <img id="cert-photo-1" class="certificate-photo" src="" alt="Фото сертификата 2">
+                                <div class="certificate-placeholder" id="cert-placeholder-1">
                                     📄
                                     <span>Нажмите для фото</span>
                                 </div>
@@ -1068,7 +1067,7 @@
                             </div>
                         </div>
                         <div class="certificate-footer">
-                            <div class="certificate-date">Действителен: бессрочно</div>
+                            <div class="certificate-date"></div>
                         </div>
                     </div>
                 </div>
@@ -1358,11 +1357,15 @@
                         <div class="certificate-info">
                             <div class="certificate-info-item">
                                 <div class="certificate-info-label">Наименование</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-name-${index}">Курс повышения квалификации</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-name-${index}"></div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Номер</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-number-${index}-value"></div>
                             </div>
                             <div class="certificate-info-item">
                                 <div class="certificate-info-label">Дата выдачи</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-date-${index}">2025 г.</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-date-${index}"></div>
                             </div>
                         </div>
                         <div class="certificate-photo-frame" onclick="handleCertPhotoClick(${index})">
@@ -1375,7 +1378,7 @@
                         </div>
                     </div>
                     <div class="certificate-footer">
-                        <div class="certificate-date">Добавлен: ${new Date().toLocaleDateString('ru-RU')}</div>
+                        <div class="certificate-date"></div>
                     </div>
                 </div>
             `;
@@ -1386,6 +1389,7 @@
             if (document.getElementById('passport').classList.contains('edit-mode')) {
                 document.getElementById(`cert-number-${index}`).setAttribute('contenteditable', 'true');
                 document.getElementById(`cert-name-${index}`).setAttribute('contenteditable', 'true');
+                document.getElementById(`cert-number-${index}-value`).setAttribute('contenteditable', 'true');
                 document.getElementById(`cert-date-${index}`).setAttribute('contenteditable', 'true');
             }
         }
