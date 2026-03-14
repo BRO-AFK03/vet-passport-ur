@@ -407,13 +407,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
+            display: block;
         }
 
         .certificate-placeholder {
             width: 100%;
             height: 100%;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -830,7 +830,7 @@
             <div class="photo-section">
                 <div class="photo-frame" id="photoFrame" onclick="handlePhotoClick()">
                     <!-- Фотография Уршуллы -->
-                    <img id="animal-photo" src="https://i.imgur.com/5d1e9576.jpg" alt="Фото Уршуллы">
+                    <img id="animal-photo" src="WhatsApp Image 2026-03-13 at 12.41.51.jpeg" alt="Фото Уршуллы">
                     <div class="photo-placeholder" id="photo-placeholder">
                         🐾
                         <span>Уршулла</span>
@@ -996,8 +996,81 @@
                 
                 <!-- Контейнер для сертификатов -->
                 <div class="certificates-grid" id="certificates-container">
-                    <!-- Сертификат 1 (будет добавлен через JS) -->
-                    <!-- Сертификат 2 (будет добавлен через JS) -->
+                    <!-- Сертификат 1 -->
+                    <div class="certificate-card" id="cert-card-0">
+                        <div class="certificate-header">
+                            <div class="certificate-title">
+                                <span contenteditable="false" id="cert-number-0">СЕРТИФИКАТ № 001</span>
+                            </div>
+                            <div class="certificate-badge">ПЕРВИЧНЫЙ</div>
+                        </div>
+                        <div class="certificate-content">
+                            <div class="certificate-info">
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Наименование</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-0">Первоначальная подготовка по поиску НС</div>
+                                </div>
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Номер</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-0-value">00003</div>
+                                </div>
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Дата выдачи</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-0">2021 г.</div>
+                                </div>
+                            </div>
+                            <div class="certificate-photo-frame" onclick="handleCertPhotoClick(0)">
+                                <!-- Фото сертификата 1 - Снимок экрана 2026-03-14 092121.png -->
+                                <img id="cert-photo-0" class="certificate-photo" src="Снимок экрана 2026-03-14 092121.png" alt="Фото сертификата 1" style="display: block;">
+                                <div class="certificate-placeholder" id="cert-placeholder-0" style="display: none;">
+                                    📄
+                                    <span>Нажмите для фото</span>
+                                </div>
+                                <div class="certificate-hint" id="certHint0">📸 Включите режим редактирования</div>
+                            </div>
+                        </div>
+                        <div class="certificate-footer">
+                            <div class="certificate-date">Действителен: бессрочно</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Сертификат 2 -->
+                    <div class="certificate-card" id="cert-card-1">
+                        <div class="certificate-header">
+                            <div class="certificate-title">
+                                <span contenteditable="false" id="cert-number-1">СЕРТИФИКАТ № 002</span>
+                            </div>
+                            <div class="certificate-badge">ПОВЫШЕНИЕ</div>
+                        </div>
+                        <div class="certificate-content">
+                            <div class="certificate-info">
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Наименование</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-name-1">Поиск синтетических НС</div>
+                                </div>
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Номер</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-number-1-value">№ 0089</div>
+                                </div>
+                                <div class="certificate-info-item">
+                                    <div class="certificate-info-label">Дата выдачи</div>
+                                    <div class="certificate-info-value" contenteditable="false" id="cert-date-1">2025 г.</div>
+                                </div>
+                            </div>
+                            <div class="certificate-photo-frame" onclick="handleCertPhotoClick(1)">
+                                <!-- Фото сертификата 2 - пока нет, можно добавить позже -->
+                                <img id="cert-photo-1" class="certificate-photo" src="" alt="Фото сертификата 2" style="display: none;">
+                                <div class="certificate-placeholder" id="cert-placeholder-1" style="display: flex;">
+                                    📄
+                                    <span>Нажмите для фото</span>
+                                </div>
+                                <div class="certificate-hint" id="certHint1">📸 Включите режим редактирования</div>
+                            </div>
+                        </div>
+                        <div class="certificate-footer">
+                            <div class="certificate-date">Действителен: бессрочно</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Кнопка добавления нового сертификата -->
@@ -1049,7 +1122,7 @@
             'performance', 'diet', 'schedule', 'pedigree', 'retirement-date'
         ];
 
-        let certificateCount = 2; // Начинаем с 2 сертификатов
+        let certificateCount = 2;
         let currentCertFrame = null;
 
         function enableEditMode() {
@@ -1058,6 +1131,20 @@
                 const el = document.getElementById(id);
                 if (el) el.setAttribute('contenteditable', 'true');
             });
+            
+            // Добавляем contenteditable для полей сертификатов
+            for (let i = 0; i < certificateCount; i++) {
+                const certNumber = document.getElementById(`cert-number-${i}`);
+                const certName = document.getElementById(`cert-name-${i}`);
+                const certNumberValue = document.getElementById(`cert-number-${i}-value`);
+                const certDate = document.getElementById(`cert-date-${i}`);
+                
+                if (certNumber) certNumber.setAttribute('contenteditable', 'true');
+                if (certName) certName.setAttribute('contenteditable', 'true');
+                if (certNumberValue) certNumberValue.setAttribute('contenteditable', 'true');
+                if (certDate) certDate.setAttribute('contenteditable', 'true');
+            }
+            
             document.getElementById('modeIndicator').className = 'mode-indicator edit';
             document.getElementById('modeIcon').innerHTML = '✏️';
             document.getElementById('modeText').innerHTML = 'Редактирование';
@@ -1065,7 +1152,6 @@
             document.getElementById('saveBtn').disabled = false;
             document.getElementById('photoHint').innerHTML = '📸 Нажмите для замены фото';
             
-            // Обновляем подсказки для всех сертификатов
             updateCertHints('📸 Нажмите для загрузки фото');
         }
 
@@ -1075,6 +1161,20 @@
                 const el = document.getElementById(id);
                 if (el) el.removeAttribute('contenteditable');
             });
+            
+            // Убираем contenteditable у полей сертификатов
+            for (let i = 0; i < certificateCount; i++) {
+                const certNumber = document.getElementById(`cert-number-${i}`);
+                const certName = document.getElementById(`cert-name-${i}`);
+                const certNumberValue = document.getElementById(`cert-number-${i}-value`);
+                const certDate = document.getElementById(`cert-date-${i}`);
+                
+                if (certNumber) certNumber.removeAttribute('contenteditable');
+                if (certName) certName.removeAttribute('contenteditable');
+                if (certNumberValue) certNumberValue.removeAttribute('contenteditable');
+                if (certDate) certDate.removeAttribute('contenteditable');
+            }
+            
             document.getElementById('modeIndicator').className = 'mode-indicator view';
             document.getElementById('modeIcon').innerHTML = '👁️';
             document.getElementById('modeText').innerHTML = 'Просмотр';
@@ -1082,7 +1182,6 @@
             document.getElementById('saveBtn').disabled = true;
             document.getElementById('photoHint').innerHTML = '📸 Включите режим редактирования';
             
-            // Обновляем подсказки для всех сертификатов
             updateCertHints('📸 Включите режим редактирования');
         }
 
@@ -1109,11 +1208,11 @@
             const photo = document.getElementById('animal-photo');
             if (photo.src) localStorage.setItem('urshullaDogPhoto', photo.src);
             
-            // Сохраняем все фото сертификатов
             for (let i = 0; i < certificateCount; i++) {
                 const certPhoto = document.getElementById(`cert-photo-${i}`);
                 const certNumber = document.getElementById(`cert-number-${i}`);
                 const certName = document.getElementById(`cert-name-${i}`);
+                const certNumberValue = document.getElementById(`cert-number-${i}-value`);
                 const certDate = document.getElementById(`cert-date-${i}`);
                 
                 if (certPhoto && certPhoto.src) {
@@ -1124,6 +1223,9 @@
                 }
                 if (certName) {
                     localStorage.setItem(`urshullaCertName${i}`, certName.innerHTML);
+                }
+                if (certNumberValue) {
+                    localStorage.setItem(`urshullaCertNumberValue${i}`, certNumberValue.innerHTML);
                 }
                 if (certDate) {
                     localStorage.setItem(`urshullaCertDate${i}`, certDate.innerHTML);
@@ -1154,23 +1256,18 @@
                 placeholder.style.display = 'none';
             }
             
-            // Загружаем сертификаты
             loadCertificates();
         }
 
         function loadCertificates() {
-            // Проверяем, есть ли сохраненные сертификаты
-            for (let i = 0; i < 10; i++) { // Максимум 10 сертификатов
+            for (let i = 0; i < 10; i++) {
                 const savedCertPhoto = localStorage.getItem(`urshullaCertPhoto${i}`);
                 const savedCertNumber = localStorage.getItem(`urshullaCertNumber${i}`);
                 const savedCertName = localStorage.getItem(`urshullaCertName${i}`);
+                const savedCertNumberValue = localStorage.getItem(`urshullaCertNumberValue${i}`);
                 const savedCertDate = localStorage.getItem(`urshullaCertDate${i}`);
                 
-                if (savedCertPhoto || savedCertNumber || savedCertName || savedCertDate) {
-                    if (i >= certificateCount) {
-                        addNewCertificate(); // Добавляем сертификат, если его нет
-                    }
-                    
+                if (savedCertPhoto || savedCertNumber || savedCertName || savedCertNumberValue || savedCertDate) {
                     setTimeout(() => {
                         const certImg = document.getElementById(`cert-photo-${i}`);
                         const certPlaceholder = document.getElementById(`cert-placeholder-${i}`);
@@ -1185,6 +1282,9 @@
                         
                         const certName = document.getElementById(`cert-name-${i}`);
                         if (certName && savedCertName) certName.innerHTML = savedCertName;
+                        
+                        const certNumberValue = document.getElementById(`cert-number-${i}-value`);
+                        if (certNumberValue && savedCertNumberValue) certNumberValue.innerHTML = savedCertNumberValue;
                         
                         const certDate = document.getElementById(`cert-date-${i}`);
                         if (certDate && savedCertDate) certDate.innerHTML = savedCertDate;
@@ -1283,7 +1383,6 @@
             container.insertAdjacentHTML('beforeend', certHtml);
             certificateCount++;
             
-            // Если в режиме редактирования, добавляем contenteditable
             if (document.getElementById('passport').classList.contains('edit-mode')) {
                 document.getElementById(`cert-number-${index}`).setAttribute('contenteditable', 'true');
                 document.getElementById(`cert-name-${index}`).setAttribute('contenteditable', 'true');
@@ -1298,93 +1397,7 @@
             }
         }
 
-        // Инициализация начальных сертификатов
-        function initCertificates() {
-            const container = document.getElementById('certificates-container');
-            
-            // Сертификат 1
-            const cert1Html = `
-                <div class="certificate-card" id="cert-card-0">
-                    <div class="certificate-header">
-                        <div class="certificate-title">
-                            <span contenteditable="false" id="cert-number-0">СЕРТИФИКАТ № 001</span>
-                        </div>
-                        <div class="certificate-badge">ПЕРВИЧНЫЙ</div>
-                    </div>
-                    <div class="certificate-content">
-                        <div class="certificate-info">
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Наименование</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-name-0">Первоначальная подготовка по поиску НС</div>
-                            </div>
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Номер</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-number-0-value">00003</div>
-                            </div>
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Дата выдачи</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-date-0">2021 г.</div>
-                            </div>
-                        </div>
-                        <div class="certificate-photo-frame" onclick="handleCertPhotoClick(0)">
-                            <img id="cert-photo-0" class="certificate-photo" src="" alt="Фото сертификата 1">
-                            <div class="certificate-placeholder" id="cert-placeholder-0">
-                                📄
-                                <span>Нажмите для фото</span>
-                            </div>
-                            <div class="certificate-hint" id="certHint0">📸 Включите режим редактирования</div>
-                        </div>
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="certificate-date">Действителен: бессрочно</div>
-                    </div>
-                </div>
-            `;
-            
-            // Сертификат 2
-            const cert2Html = `
-                <div class="certificate-card" id="cert-card-1">
-                    <div class="certificate-header">
-                        <div class="certificate-title">
-                            <span contenteditable="false" id="cert-number-1">СЕРТИФИКАТ № 002</span>
-                        </div>
-                        <div class="certificate-badge">ПОВЫШЕНИЕ</div>
-                    </div>
-                    <div class="certificate-content">
-                        <div class="certificate-info">
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Наименование</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-name-1">Поиск синтетических НС</div>
-                            </div>
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Номер</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-number-1-value">№ 0089</div>
-                            </div>
-                            <div class="certificate-info-item">
-                                <div class="certificate-info-label">Дата выдачи</div>
-                                <div class="certificate-info-value" contenteditable="false" id="cert-date-1">2025 г.</div>
-                            </div>
-                        </div>
-                        <div class="certificate-photo-frame" onclick="handleCertPhotoClick(1)">
-                            <img id="cert-photo-1" class="certificate-photo" src="" alt="Фото сертификата 2">
-                            <div class="certificate-placeholder" id="cert-placeholder-1">
-                                📄
-                                <span>Нажмите для фото</span>
-                            </div>
-                            <div class="certificate-hint" id="certHint1">📸 Включите режим редактирования</div>
-                        </div>
-                    </div>
-                    <div class="certificate-footer">
-                        <div class="certificate-date">Действителен: бессрочно</div>
-                    </div>
-                </div>
-            `;
-            
-            container.innerHTML = cert1Html + cert2Html;
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            initCertificates();
             loadSavedData();
             disableEditMode();
         });
