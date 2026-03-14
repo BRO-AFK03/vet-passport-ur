@@ -309,6 +309,196 @@
             transform: translateY(0);
         }
 
+        /* СТИЛИ ДЛЯ СЕРТИФИКАТОВ */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .certificate-card {
+            background: #faf0e0;
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid #c9a959;
+            box-shadow: 0 5px 0 #b4946a;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #b4946a;
+        }
+
+        .certificate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #c9a959;
+            padding-bottom: 10px;
+        }
+
+        .certificate-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0a3142;
+        }
+
+        .certificate-badge {
+            background: #c9a959;
+            color: #0a3142;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .certificate-content {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .certificate-info {
+            flex: 2;
+            min-width: 150px;
+        }
+
+        .certificate-info-item {
+            margin-bottom: 8px;
+        }
+
+        .certificate-info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #7a5a3a;
+            font-weight: 700;
+        }
+
+        .certificate-info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e4b3e;
+            word-break: break-word;
+        }
+
+        .certificate-photo-frame {
+            flex: 0 1 150px;
+            min-width: 120px;
+            height: auto;
+            aspect-ratio: 150/120;
+            background: #b5aa99;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 4px solid #c9a959;
+            box-shadow: 0 4px 0 #8b7759;
+            position: relative;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .certificate-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .certificate-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #8b7f6a, #b5a386);
+            color: #2a2a1c;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .certificate-placeholder span {
+            font-size: 0.7rem;
+            display: block;
+            padding: 0 5px;
+            margin-top: 5px;
+        }
+
+        .certificate-hint {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: #ffd966;
+            text-align: center;
+            padding: 6px;
+            transform: translateY(100%);
+            transition: transform 0.2s;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .edit-mode .certificate-photo-frame:hover .certificate-hint,
+        .edit-mode .certificate-photo-frame:active .certificate-hint {
+            transform: translateY(0);
+        }
+
+        .certificate-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            border-top: 1px solid #e0d0ba;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+
+        .certificate-date {
+            font-size: 0.85rem;
+            color: #6b5a45;
+            font-style: italic;
+        }
+
+        /* КНОПКА ДОБАВЛЕНИЯ СЕРТИФИКАТА */
+        .add-certificate-btn {
+            background: #faf0e0;
+            border: 2px dashed #c9a959;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0a3142;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 4px 0 #b4946a;
+        }
+
+        .add-certificate-btn:hover {
+            background: #ffeacb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #b4946a;
+        }
+
+        .add-certificate-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #b4946a;
+        }
+
+        .edit-mode .add-certificate-btn {
+            cursor: pointer;
+        }
+
         /* СТИЛИ ДЛЯ ИСТОРИИ ПОРОДЫ */
         .history-section {
             background: #faf0e0;
@@ -513,7 +703,7 @@
             opacity: 1;
         }
 
-        #file-input {
+        #file-input, #cert-file-input {
             display: none;
         }
 
@@ -543,15 +733,16 @@
 
         /* Для touch устройств */
         @media (hover: none) and (pointer: coarse) {
-            .btn, .photo-frame {
+            .btn, .photo-frame, .certificate-photo-frame, .add-certificate-btn {
                 cursor: pointer;
             }
             
-            .photo-hint {
+            .photo-hint, .certificate-hint {
                 transform: translateY(70%);
             }
             
-            .edit-mode .photo-frame:active .photo-hint {
+            .edit-mode .photo-frame:active .photo-hint,
+            .edit-mode .certificate-photo-frame:active .certificate-hint {
                 transform: translateY(0);
             }
             
@@ -799,7 +990,25 @@
                 </div>
             </div>
 
-            <!-- ИСТОРИЯ ПОРОДЫ - НОВЫЙ РАЗДЕЛ В САМОМ НИЗУ -->
+            <!-- НОВЫЙ ОТДЕЛ: СЕРТИФИКАТЫ С ФОТО -->
+            <div class="section-card">
+                <div class="section-title">📜 СЕРТИФИКАТЫ И ДИПЛОМЫ</div>
+                
+                <!-- Контейнер для сертификатов -->
+                <div class="certificates-grid" id="certificates-container">
+                    <!-- Сертификат 1 (будет добавлен через JS) -->
+                    <!-- Сертификат 2 (будет добавлен через JS) -->
+                </div>
+                
+                <!-- Кнопка добавления нового сертификата -->
+                <div class="add-certificate-btn" id="addCertificateBtn" onclick="addNewCertificate()">
+                    <span>➕</span> ДОБАВИТЬ НОВЫЙ СЕРТИФИКАТ
+                </div>
+                
+                <input type="file" id="cert-file-input" accept="image/*" onchange="loadCertPhoto(event)" style="display: none;">
+            </div>
+
+            <!-- ИСТОРИЯ ПОРОДЫ -->
             <div class="history-section">
                 <div class="history-title">
                     📖 ИСТОРИЯ ПОРОДЫ: БЕЛЬГИЙСКАЯ ОВЧАРКА МАЛИНУА
@@ -840,6 +1049,9 @@
             'performance', 'diet', 'schedule', 'pedigree', 'retirement-date'
         ];
 
+        let certificateCount = 2; // Начинаем с 2 сертификатов
+        let currentCertFrame = null;
+
         function enableEditMode() {
             document.getElementById('passport').classList.add('edit-mode');
             editableFields.forEach(id => {
@@ -852,6 +1064,9 @@
             document.getElementById('editBtn').disabled = true;
             document.getElementById('saveBtn').disabled = false;
             document.getElementById('photoHint').innerHTML = '📸 Нажмите для замены фото';
+            
+            // Обновляем подсказки для всех сертификатов
+            updateCertHints('📸 Нажмите для загрузки фото');
         }
 
         function disableEditMode() {
@@ -866,6 +1081,16 @@
             document.getElementById('editBtn').disabled = false;
             document.getElementById('saveBtn').disabled = true;
             document.getElementById('photoHint').innerHTML = '📸 Включите режим редактирования';
+            
+            // Обновляем подсказки для всех сертификатов
+            updateCertHints('📸 Включите режим редактирования');
+        }
+
+        function updateCertHints(text) {
+            for (let i = 0; i < certificateCount; i++) {
+                const hint = document.getElementById(`certHint${i}`);
+                if (hint) hint.innerHTML = text;
+            }
         }
 
         function saveAndLock() {
@@ -884,6 +1109,27 @@
             const photo = document.getElementById('animal-photo');
             if (photo.src) localStorage.setItem('urshullaDogPhoto', photo.src);
             
+            // Сохраняем все фото сертификатов
+            for (let i = 0; i < certificateCount; i++) {
+                const certPhoto = document.getElementById(`cert-photo-${i}`);
+                const certNumber = document.getElementById(`cert-number-${i}`);
+                const certName = document.getElementById(`cert-name-${i}`);
+                const certDate = document.getElementById(`cert-date-${i}`);
+                
+                if (certPhoto && certPhoto.src) {
+                    localStorage.setItem(`urshullaCertPhoto${i}`, certPhoto.src);
+                }
+                if (certNumber) {
+                    localStorage.setItem(`urshullaCertNumber${i}`, certNumber.innerHTML);
+                }
+                if (certName) {
+                    localStorage.setItem(`urshullaCertName${i}`, certName.innerHTML);
+                }
+                if (certDate) {
+                    localStorage.setItem(`urshullaCertDate${i}`, certDate.innerHTML);
+                }
+            }
+            
             const notification = document.getElementById('saveNotification');
             notification.classList.add('show');
             setTimeout(() => notification.classList.remove('show'), 2000);
@@ -898,6 +1144,7 @@
                     if (el) el.innerHTML = data[id];
                 });
             }
+            
             const savedPhoto = localStorage.getItem('urshullaDogPhoto');
             if (savedPhoto) {
                 const img = document.getElementById('animal-photo');
@@ -906,11 +1153,58 @@
                 img.style.display = 'block';
                 placeholder.style.display = 'none';
             }
+            
+            // Загружаем сертификаты
+            loadCertificates();
+        }
+
+        function loadCertificates() {
+            // Проверяем, есть ли сохраненные сертификаты
+            for (let i = 0; i < 10; i++) { // Максимум 10 сертификатов
+                const savedCertPhoto = localStorage.getItem(`urshullaCertPhoto${i}`);
+                const savedCertNumber = localStorage.getItem(`urshullaCertNumber${i}`);
+                const savedCertName = localStorage.getItem(`urshullaCertName${i}`);
+                const savedCertDate = localStorage.getItem(`urshullaCertDate${i}`);
+                
+                if (savedCertPhoto || savedCertNumber || savedCertName || savedCertDate) {
+                    if (i >= certificateCount) {
+                        addNewCertificate(); // Добавляем сертификат, если его нет
+                    }
+                    
+                    setTimeout(() => {
+                        const certImg = document.getElementById(`cert-photo-${i}`);
+                        const certPlaceholder = document.getElementById(`cert-placeholder-${i}`);
+                        if (certImg && certPlaceholder && savedCertPhoto) {
+                            certImg.src = savedCertPhoto;
+                            certImg.style.display = 'block';
+                            certPlaceholder.style.display = 'none';
+                        }
+                        
+                        const certNumber = document.getElementById(`cert-number-${i}`);
+                        if (certNumber && savedCertNumber) certNumber.innerHTML = savedCertNumber;
+                        
+                        const certName = document.getElementById(`cert-name-${i}`);
+                        if (certName && savedCertName) certName.innerHTML = savedCertName;
+                        
+                        const certDate = document.getElementById(`cert-date-${i}`);
+                        if (certDate && savedCertDate) certDate.innerHTML = savedCertDate;
+                    }, 100 * i);
+                }
+            }
         }
 
         function handlePhotoClick() {
             if (document.getElementById('passport').classList.contains('edit-mode')) {
                 document.getElementById('file-input').click();
+            } else {
+                alert('Включите режим редактирования!');
+            }
+        }
+
+        function handleCertPhotoClick(certIndex) {
+            if (document.getElementById('passport').classList.contains('edit-mode')) {
+                currentCertFrame = certIndex;
+                document.getElementById('cert-file-input').click();
             } else {
                 alert('Включите режим редактирования!');
             }
@@ -931,6 +1225,72 @@
             }
         }
 
+        function loadCertPhoto(event) {
+            const file = event.target.files[0];
+            if (file && currentCertFrame !== null) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const certImg = document.getElementById(`cert-photo-${currentCertFrame}`);
+                    const certPlaceholder = document.getElementById(`cert-placeholder-${currentCertFrame}`);
+                    if (certImg && certPlaceholder) {
+                        certImg.src = e.target.result;
+                        certImg.style.display = 'block';
+                        certPlaceholder.style.display = 'none';
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addNewCertificate() {
+            const container = document.getElementById('certificates-container');
+            const index = certificateCount;
+            
+            const certHtml = `
+                <div class="certificate-card" id="cert-card-${index}">
+                    <div class="certificate-header">
+                        <div class="certificate-title">
+                            <span contenteditable="false" id="cert-number-${index}">СЕРТИФИКАТ № ${String(index + 1).padStart(3, '0')}</span>
+                        </div>
+                        <div class="certificate-badge">НОВЫЙ</div>
+                    </div>
+                    <div class="certificate-content">
+                        <div class="certificate-info">
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Наименование</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-name-${index}">Курс повышения квалификации</div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Дата выдачи</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-date-${index}">2025 г.</div>
+                            </div>
+                        </div>
+                        <div class="certificate-photo-frame" onclick="handleCertPhotoClick(${index})">
+                            <img id="cert-photo-${index}" class="certificate-photo" src="" alt="Фото сертификата ${index + 1}">
+                            <div class="certificate-placeholder" id="cert-placeholder-${index}">
+                                📄
+                                <span>Нажмите для фото</span>
+                            </div>
+                            <div class="certificate-hint" id="certHint${index}">📸 ${document.getElementById('passport').classList.contains('edit-mode') ? 'Нажмите для загрузки фото' : 'Включите режим редактирования'}</div>
+                        </div>
+                    </div>
+                    <div class="certificate-footer">
+                        <div class="certificate-date">Добавлен: ${new Date().toLocaleDateString('ru-RU')}</div>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', certHtml);
+            certificateCount++;
+            
+            // Если в режиме редактирования, добавляем contenteditable
+            if (document.getElementById('passport').classList.contains('edit-mode')) {
+                document.getElementById(`cert-number-${index}`).setAttribute('contenteditable', 'true');
+                document.getElementById(`cert-name-${index}`).setAttribute('contenteditable', 'true');
+                document.getElementById(`cert-date-${index}`).setAttribute('contenteditable', 'true');
+            }
+        }
+
         function resetToDefault() {
             if (confirm('Очистить все данные? Это действие нельзя отменить.')) {
                 localStorage.clear();
@@ -938,7 +1298,93 @@
             }
         }
 
+        // Инициализация начальных сертификатов
+        function initCertificates() {
+            const container = document.getElementById('certificates-container');
+            
+            // Сертификат 1
+            const cert1Html = `
+                <div class="certificate-card" id="cert-card-0">
+                    <div class="certificate-header">
+                        <div class="certificate-title">
+                            <span contenteditable="false" id="cert-number-0">СЕРТИФИКАТ № 001</span>
+                        </div>
+                        <div class="certificate-badge">ПЕРВИЧНЫЙ</div>
+                    </div>
+                    <div class="certificate-content">
+                        <div class="certificate-info">
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Наименование</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-name-0">Первоначальная подготовка по поиску НС</div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Номер</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-number-0-value">00003</div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Дата выдачи</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-date-0">2021 г.</div>
+                            </div>
+                        </div>
+                        <div class="certificate-photo-frame" onclick="handleCertPhotoClick(0)">
+                            <img id="cert-photo-0" class="certificate-photo" src="" alt="Фото сертификата 1">
+                            <div class="certificate-placeholder" id="cert-placeholder-0">
+                                📄
+                                <span>Нажмите для фото</span>
+                            </div>
+                            <div class="certificate-hint" id="certHint0">📸 Включите режим редактирования</div>
+                        </div>
+                    </div>
+                    <div class="certificate-footer">
+                        <div class="certificate-date">Действителен: бессрочно</div>
+                    </div>
+                </div>
+            `;
+            
+            // Сертификат 2
+            const cert2Html = `
+                <div class="certificate-card" id="cert-card-1">
+                    <div class="certificate-header">
+                        <div class="certificate-title">
+                            <span contenteditable="false" id="cert-number-1">СЕРТИФИКАТ № 002</span>
+                        </div>
+                        <div class="certificate-badge">ПОВЫШЕНИЕ</div>
+                    </div>
+                    <div class="certificate-content">
+                        <div class="certificate-info">
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Наименование</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-name-1">Поиск синтетических НС</div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Номер</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-number-1-value">№ 0089</div>
+                            </div>
+                            <div class="certificate-info-item">
+                                <div class="certificate-info-label">Дата выдачи</div>
+                                <div class="certificate-info-value" contenteditable="false" id="cert-date-1">2025 г.</div>
+                            </div>
+                        </div>
+                        <div class="certificate-photo-frame" onclick="handleCertPhotoClick(1)">
+                            <img id="cert-photo-1" class="certificate-photo" src="" alt="Фото сертификата 2">
+                            <div class="certificate-placeholder" id="cert-placeholder-1">
+                                📄
+                                <span>Нажмите для фото</span>
+                            </div>
+                            <div class="certificate-hint" id="certHint1">📸 Включите режим редактирования</div>
+                        </div>
+                    </div>
+                    <div class="certificate-footer">
+                        <div class="certificate-date">Действителен: бессрочно</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = cert1Html + cert2Html;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            initCertificates();
             loadSavedData();
             disableEditMode();
         });
